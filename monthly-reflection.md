@@ -74,10 +74,10 @@ This is the most useful section. Honest reflection on failures builds understand
 
 | Dimension | Current Level | One-line reasoning |
 |---|---|---|
-| Workflow & Tooling | Baseline / Exceeds Expectations / Leading | |
-| QA | Baseline / Exceeds Expectations / Leading | |
-| Skills & Community | Baseline / Exceeds Expectations / Leading | |
-| Leadership & Adoption | Baseline / Exceeds Expectations / Leading | |
+| Workflow & Tooling | Prompting / Orchestrating / Engineering / Pioneering | |
+| QA | Prompting / Orchestrating / Engineering / Pioneering | |
+| Skills & Community | Prompting / Orchestrating / Engineering / Pioneering | |
+| Leadership & Adoption | Prompting / Orchestrating / Engineering / Pioneering | |
 
 **Changed from last month?** If yes — what shifted in your actual practice?
 

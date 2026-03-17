@@ -62,11 +62,11 @@ Open Claude Code in this directory and start a session. `CLAUDE.md` activates Th
 
 ## Dimensions at a Glance
 
-**Baseline** is the expected level for all engineers. Exceeds Expectations and Leading represent meaningful growth beyond it.
+**Prompting** is where most engineers are today. Each level represents a meaningful shift in how you work — not just how much you use AI.
 
-| Dimension | Baseline | Exceeds Expectations | Leading |
-|---|---|---|---|
-| **Workflow & Tooling** | Agentic orchestration, MCP, subagents, worktrees | Agent teams, custom MCP servers | 2–4 parallel worktrees with dedicated agent sessions, staged large-feature workflows, parallel subagents |
-| **QA** | Test plan before coding, agentic QA runs | Playwright/API/mobile agentic testing, peer-reviewed test plans | TDD skill + implementation subagent running in parallel, Playwright verification before every commit |
-| **Skills & Community** | Monthly blog, uses Agentic Review | Checked-in Skills approved by L4 dev | Skills adopted cross-team, writes honestly about their AI journey including tradeoffs and what they had to unlearn |
-| **Leadership & Adoption** | Visible AI use shared in PRs/Slack/demos | Workshops and structured knowledge transfer | 1–2 engineers adopt a new workflow; writing about the journey becomes a team reference |
+| Dimension | Prompting | Orchestrating | Engineering | Pioneering |
+|---|---|---|---|---|
+| **Workflow & Tooling** | Single-shot prompts + context file | Agentic orchestration, MCP, subagents, worktrees | Agent teams, custom MCP servers | Parallel worktrees, staged large-feature workflows, parallel subagents |
+| **QA** | Tests written after implementation, manually | Test plan before coding, agentic QA runs | Playwright/API/mobile agentic testing, peer-reviewed test plans | TDD + implementation subagent in parallel, Playwright verification before every commit |
+| **Skills & Community** | Techniques personal, not yet shared | Monthly post, uses Agentic Review | Checked-in Skills approved by L4 dev | Skills adopted cross-team, writes honestly about the AI journey |
+| **Leadership & Adoption** | AI use invisible to teammates | Visible sharing in PRs/Slack/demos | Workshops and structured knowledge transfer | 1–2 engineers adopt a new workflow; writing becomes a team reference |
