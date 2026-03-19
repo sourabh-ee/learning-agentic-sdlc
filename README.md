@@ -3,7 +3,7 @@
 
 ## What This Is
 
-A framework for engineers who want to grow their agentic AI skills across the SDLC — and have a structure for tracking that growth honestly over time.
+A learning framework for engineers who want to grow their agentic AI skills across the SDLC — and have a structure for tracking that growth honestly over time. You will get recommendations to learn, you can ask questions/doubts to the Coach and report back with progress.
 
 This is not a performance review tool. No manager sees it. There is no score. It exists because the gap between "using AI occasionally" and "using AI as a structured collaborator" is wide enough that most people benefit from an explicit map of what the journey looks like.
 
@@ -12,6 +12,7 @@ This is not a performance review tool. No manager sees it. There is no score. It
 - Not a manager reporting tool
 - Not a productivity metric (does not measure lines generated, tickets closed, or AI usage %)
 - Not a pass/fail assessment or a benchmark against teammates
+- Not a framework to do your actual development in. That has to be done in a separate Claude agent or Cursor agent.
 
 What you write here stays with you. Its purpose is to surface honest self-awareness, not to justify a rating.
 
@@ -37,6 +38,12 @@ claude
 ## How to Use It
 
 Open Claude Code in this directory and start a session. The Coach will profile you through a narrative conversation — not a questionnaire. It identifies your gaps, places you on the scorecard, and gives you a prioritized technique map to reach the next level. Your profile is saved to `my-profile.md` (git-ignored) so you don't repeat yourself between sessions.
+
+**Sample Conversations**
+Have a look at these conversations to understand how you can communicate with the Coach and what kind of feedback you might expect. Ofcourse the Coach is an LLM so you can ask and have it respond in a way that suits you best (e.g. in a varhadi marathi dialect)
+
+**Level Playbooks**
+Post profiling, you can look at the Level Playbooks to understand what each level looks like at a high level and relevance to you tech stack.
 
 **Monthly reflection** is optional. If you've been practicing for a month and want a quick self-check before your next session, fill out `monthly-reflection.md` and bring it to the session — the Coach will use it to accelerate profiling.
 
