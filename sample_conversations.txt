@@ -1,0 +1,200 @@
+  Priya — Session 2 (10 turns)
+
+  TURN 1
+  Priya: Hey! Back for round two.
+  Coach: Priya, welcome back. Last session we placed you at Prompting across all four dimensions. You're on Node.js/GraphQL, you
+  already have CLAUDE.md, and the technique map was: (1) test plan from ACs before coding, (2) GitHub MCP, (3) subagent for code
+  review, (4) write up your CLAUDE.md pattern and share it. You committed to trying the test plan technique on your next story.
+  How did that go?
+
+  ---
+  TURN 2
+  Priya: It went really well. I used it on two stories. Kafka consumer retry logic — generated the test plan first, caught a
+  missing error state: what happens if the consumer is mid-retry when the service restarts. Second story, admin bulk export —
+  surfaced a permissions edge case: what if a user's admin role is revoked mid-export. Both times, before I wrote a single line.
+  Coach: Priya, that is genuinely excellent. On the Kafka story, "what happens mid-retry when the service restarts" is exactly
+  the kind of state-transition edge case that normally surfaces as a production incident, not a review comment. On the bulk
+  export, "admin role revoked mid-export" is a permissions race condition that could have been a security issue in production.
+  Two stories, both with test plans before coding, both catching real design-level bugs. That's not a one-off — that's consistent
+   practice. You've crossed into Orchestrating on QA. That's a real level change, and you earned it.
+
+  ---
+  TURN 3
+  Priya: Oh wow, really? I also wrote a short Slack post about the test plan technique — included what it caught on the Kafka
+  story. Four colleagues reacted positively, one asked me a follow-up question about how to set it up.
+  Coach: That's exactly what moves the needle on Skills & Community. You didn't just say "AI is useful" — you wrote up a specific
+   technique with a concrete example of what it caught. The fact that a colleague asked a follow-up tells you it landed —
+  specific enough to be actionable. That moves you to Orchestrating on Skills & Community as well. Two dimensions tipped in one
+  sprint. That's a strong cycle.
+
+  ---
+  TURN 4
+  Priya: So where does that leave me overall now?
+  Coach: Updated placement:
+  - Workflow & Tooling: Prompting — CLAUDE.md in place but no MCP, subagents, or worktrees yet.
+  - QA: Orchestrating — Generating test plans from ACs before coding, consistently catching real issues.
+  - Skills & Community: Orchestrating — Sharing techniques with concrete examples, getting engagement.
+  - Leadership & Adoption: Prompting — The Slack post is a start, but leadership is about sustained visibility and helping others
+   adopt. That's the next frontier.
+
+  Next up on your map: GitHub MCP server.
+
+  ---
+  TURN 5
+  Priya: I have a question about MCP — is it something I set up once or does it need to be per-project?
+  Coach: Simpler than people expect. MCP servers are configured globally per tool — you set up the GitHub MCP server once in your
+   Claude Code configuration and it's available across any project. You don't reconfigure it per project. Think of it like
+  connecting a tool to your IDE — once connected, it works everywhere. The project-specific context still comes from your
+  CLAUDE.md. MCP gives you the GitHub connection; CLAUDE.md gives the agent your stack context. They complement each other.
+
+  ---
+  TURN 6
+  Priya: Got it. I haven't tried subagents yet either. When you say subagent — does the subagent have access to my CLAUDE.md or
+  do I need to give it context separately?
+  Coach: Important question. Subagents do not automatically inherit your CLAUDE.md. When you spawn one, you pass context
+  explicitly — role, conventions, what to look for. For a code review subagent, you'd give it the diff, the relevant conventions
+  from your CLAUDE.md, and a clear instruction like "review this for error handling gaps and N+1 risks in our GraphQL resolvers."
+   That's actually a feature: you can scope it tightly. Don't worry about subagents yet though — MCP is next in your sequence
+  because it unlocks the data the subagent will need later. One step at a time.
+
+  ---
+  TURN 7
+  Priya: What would setting up MCP actually look like for me in practice?
+  Coach: For Node.js/GraphQL, here's concrete. You add the GitHub MCP server to your Claude Code config — a JSON block declaring
+  it. Once it's running, the agent can read PR diffs, review comments, CI status, and issue context directly. First use I'd
+  suggest: next time you open a PR, ask the agent to summarize the review comments and suggest responses. You'll immediately feel
+   the difference between pasting a comment into Claude versus the agent reading it in context. From there: CI failure triage —
+  the agent reads the CI output directly, explains what failed and why, before you click into the logs.
+
+  ---
+  TURN 8
+  Priya: That sounds really useful. I spend a lot of time copy-pasting CI output right now.
+  Coach: Exactly the friction MCP eliminates. Right now you're the bridge between GitHub and the agent — you read the CI log,
+  copy the relevant part, paste it in. With MCP, the agent reads it directly. And it gets the full context, not just the snippet
+  you chose to paste. That's the shift — from you being the bottleneck of context to the agent having direct access. That's what
+  moves Workflow toward Orchestrating.
+
+  ---
+  TURN 9
+  Priya: OK, I'm sold. I want to try MCP next.
+  Coach: Good choice. Here's your specific commitment: on your next PR, set up the GitHub MCP server and use it for one concrete
+  task — reading review comments or triaging a CI failure. Don't try to do everything at once. Just get it connected and use it
+  once for real. The signal it worked: you should be able to ask the agent about something on your PR without pasting anything
+  in. That's the test.
+
+  ---
+  TURN 10
+  Priya: Yes — set up GitHub MCP and use it on my next PR to read review comments or triage a CI failure.
+  Coach: Perfect. Summary: you came in having tried test plans on two real stories — Kafka retry and admin bulk export — both
+  catching design-level issues before you wrote code. That moved you to Orchestrating on QA. You wrote a Slack post with a
+  concrete example and got colleague engagement, which moved you to Orchestrating on Skills & Community. Updated placement:
+  Workflow Prompting, QA Orchestrating, Skills & Community Orchestrating, Leadership Prompting. Commitment: set up GitHub MCP and
+   use it on your next PR. Anything unclear before we close out?
+
+  ------
+  Jordan — Session 2 (10 turns)
+
+  TURN 1
+  Jordan: Hey Coach, good to be back. I've been busy since last time.
+  Coach: Jordan, welcome back. Last session you placed at Prompting on Workflow and Leadership — but you were already at
+  Orchestrating on QA and Skills & Community, which put you ahead of most engineers I talk to on those dimensions. Your technique
+   map: (1) CLAUDE.md, (2) GitHub MCP, (3) subagent for code review, (4) run tests agentically, (5) agent-assisted CI triage. You
+   committed to setting up CLAUDE.md for your iOS project. How did that go?
+
+  ---
+  TURN 2
+  Jordan: It went well. I set up CLAUDE.md — SwiftUI conventions, accessibility standards, team's ViewModifier patterns, things
+  to avoid like force-unwrap and incorrect actor usage. Used it across three stories. The first session felt noticeably
+  different. I didn't have to explain the design system or re-paste conventions. The agent just knew. It stopped suggesting
+  force-unwrap because I told it never to.
+  Coach: That is exactly the shift. Three stories is not a trial run — that is real adoption. And the specificity you put in
+  matters: you didn't write "follow SwiftUI best practices," you gave it your actual ViewModifier patterns, your accessibility
+  standards, your explicit never-do-this list. That specificity is why the agent stopped suggesting force-unwrap. That's not
+  magic — that's good harness engineering. Was CLAUDE.md the only thing you worked on, or did anything else happen?
+
+  ---
+  TURN 3
+  Jordan: After I set up CLAUDE.md I saw GitHub MCP mentioned in the docs and connected that too. I can now see PR comments and
+  CI output directly in the agent. Haven't done a ton with it yet, but it's connected and working.
+  Coach: You went beyond what you committed to. Let me be direct about what this means. Last session, Workflow was your clearest
+  gap — at Prompting. The scorecard says Orchestrating on Workflow means CLAUDE.md in regular use, MCP connected for GitHub. You
+  now have CLAUDE.md actively used across three stories and GitHub MCP connected. Jordan, your Workflow dimension has tipped to
+  Orchestrating. You are now Orchestrating on three of four dimensions — Workflow, QA, and Skills & Community. You went from one
+  dimension in Orchestrating to three in a single cycle. That's a real milestone. Genuinely. The one remaining gap is Leadership
+  & Adoption — we'll come back to that. But first — you said you haven't done a ton with MCP yet. Want to dig into that?
+
+  ---
+  TURN 4
+  Jordan: Yes, actually that's one of my questions. I set up GitHub MCP — is there something specific I should be using it for
+  day to day, or do I just have it available and it kicks in automatically?
+  Coach: It doesn't just sit there passively — you should be actively using it in three ways. First, CI failure triage: when a
+  build fails, instead of opening GitHub Actions and scrolling logs, ask the agent to pull the CI output directly and explain
+  what failed and why. Second, PR review comments: before addressing review feedback, have the agent pull all the comments on
+  your PR — it can summarize them, identify which are actionable versus stylistic, and draft responses. Third, branch diffing:
+  ask the agent what changed on a branch, useful when picking up someone else's PR or returning to your own after a few days. The
+   key shift: MCP turns the agent from something that only knows the code in front of it into something that knows the full PR
+  lifecycle — CI results, review conversation, branch state. Use it deliberately during code review and CI triage, not just as
+  background infrastructure.
+
+  ---
+  TURN 5
+  Jordan: That makes a lot of sense, especially CI triage. The other thing — my team lead saw my Slack post this month, the one
+  about what CLAUDE.md changed with the force-unwrap example, and now she wants me to run a short session for the iOS team. I've
+  never done anything like that. How should I approach it?
+  Coach: First — I want to name what's happening here. Your team lead reading your post and asking you to present is exactly the
+  signal that you're crossing into Leadership territory. Right now Leadership is your only Prompting dimension. A delivered team
+  session would be real progress toward Leadership Orchestrating. My strong advice: say yes. For how to run it: timebox to 20
+  minutes. Don't cover everything. Pick one workflow and show it live — your CLAUDE.md setup is the right choice, you already
+  have the perfect example with force-unwrap. Structure: 5 minutes explaining what CLAUDE.md is and why you set it up. 10 minutes
+   live demo — open a real story, show the agent following your conventions, point out where it avoids force-unwrap without being
+   told. 5 minutes for questions. End with something they can try immediately: "Create a CLAUDE.md for one project this week with
+   three things in it — conventions, patterns, and one never-do-this rule." 15 minutes of work, immediate value.
+
+  ---
+  TURN 6
+  Jordan: That's really helpful. I think I could do that. The force-unwrap example is easy to show. Should I mention GitHub MCP
+  too, or keep it focused?
+  Coach: Keep it focused. One workflow, demonstrated well, is worth more than a tour of three tools nobody remembers afterward.
+  If someone asks about MCP in Q&A, answer it briefly and offer to follow up. For 20 minutes with people who haven't started yet,
+   CLAUDE.md is the right entry point — it's the highest-leverage first step that you have personal experience with. You can
+  always run a second session on MCP if there's interest.
+
+  ---
+  TURN 7
+  Jordan: Makes sense. I've done CLAUDE.md and GitHub MCP. What's next on the technique map?
+  Coach: Five items on your map, first two done. Next is using a subagent for code review. Concretely for iOS: after implementing
+   a story, before raising the PR, spin up a subagent with a scoped role — "you are a senior iOS reviewer, check this diff for
+  SwiftUI anti-patterns, accessibility gaps, missing error handling, and incorrect actor isolation." Give it a scoped job. This
+  is your first experience delegating a defined role to an agent, and everything above Orchestrating builds on that muscle —
+  specialized agent teams, parallel sessions, staged workflows. It also connects to what you already have: your CLAUDE.md makes
+  the subagent's review better because it already knows your conventions, and GitHub MCP means the subagent can see full PR
+  context.
+
+  ---
+  TURN 8
+  Jordan: That sounds doable. I haven't run tests agentically yet either. Should I be worried about that?
+  Coach: Not worried — you're at Orchestrating on QA already because you're generating test plans from stories before
+  implementation. Agentic test execution is the next step within QA, and it's item four on your map. But subagent code review
+  comes first because it teaches you the pattern of delegating to a scoped agent — which is the same pattern you'll use when you
+  run tests agentically. Once you're comfortable spinning up a subagent for review, doing the same for test execution will feel
+  like an extension, not a new concept. Do them in order.
+
+  ---
+  TURN 9
+  Jordan: Got it. Current state: Orchestrating on Workflow, QA, and Skills — Prompting on Leadership. Next steps: run the team
+  session, and start using a subagent for code review.
+  Coach: Exactly right. Three of four dimensions at Orchestrating, Leadership at Prompting with a clear path through the team
+  session. The session and the subagent serve different dimensions — session moves Leadership, subagent deepens Workflow and QA.
+  Both matter. Which will you commit to before we talk next?
+
+  ---
+  TURN 10
+  Jordan: I'll commit to both. The session is already being scheduled. And I'll try the subagent code review on my next story.
+  Coach: Two commitments is fine here — they're independent and on different timelines. For the team session: 20 minutes, one
+  workflow, end with something they can try. For the subagent review: after implementation on your next story, spin it up before
+  you raise the PR. Pay attention to two things — what it catches that you'd have missed, and what it flags that isn't useful.
+  Learning to calibrate subagent output is part of the skill. When we talk next, I want to hear how both went. Anything unclear
+  before we close out?
+
+  ---
+  Evaluations — both sessions 10/10

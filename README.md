@@ -1,8 +1,9 @@
+
 # AI-in-SDLC Self-Evaluation Framework
 
 ## What This Is
 
-A self-directed framework for engineers who want to grow their agentic AI skills across the SDLC — and have a structure for tracking that growth honestly over time.
+A framework for engineers who want to grow their agentic AI skills across the SDLC — and have a structure for tracking that growth honestly over time.
 
 This is not a performance review tool. No manager sees it. There is no score. It exists because the gap between "using AI occasionally" and "using AI as a structured collaborator" is wide enough that most people benefit from an explicit map of what the journey looks like.
 
@@ -18,18 +19,16 @@ What you write here stays with you. Its purpose is to surface honest self-awaren
 
 ```bash
 git clone <this-repo>
-cd ai-self-eval
+cd learning-agentic-sdlc
 ```
 
-To use the self-directed framework, open any of the files below in your editor or wiki tool.
-
-To start a coached session, open Claude Code in this directory:
+Open Claude Code in this directory:
 
 ```bash
 claude
 ```
 
-`CLAUDE.md` activates automatically. The Coach will read the framework files, check for your profile, and guide you from there. Your profile is saved to `my-profile.md` (git-ignored) so it persists between sessions.
+`CLAUDE.md` activates automatically. The Coach will read the framework files, check for your profile, and guide you through a profiling session. Your placement, technique map, and session commitment are saved to `my-profile.md` between sessions.
 
 > **Prerequisite:** [Claude Code](https://claude.ai/code) installed and authenticated.
 
@@ -37,15 +36,9 @@ claude
 
 ## How to Use It
 
-**Option A — Self-directed (monthly)**
-1. Open [`scorecard.md`](./scorecard.md) to see where you are across four dimensions
-2. Fill out [`monthly-reflection.md`](./monthly-reflection.md) — includes 8 quick yes/no checks and a short reflection (~15 min total)
-3. Reference [`stack-examples.md`](./stack-examples.md) if you're unsure what a level looks like in your specific stack
+Open Claude Code in this directory and start a session. The Coach will profile you through a narrative conversation — not a questionnaire. It identifies your gaps, places you on the scorecard, and gives you a prioritized technique map to reach the next level. Your profile is saved to `my-profile.md` (git-ignored) so you don't repeat yourself between sessions.
 
-**Option B — Coached session**
-Open Claude Code in this directory and start a session. `CLAUDE.md` activates The Coach automatically — it will profile you, identify gaps, fetch the latest techniques from the docs, and build a personalized lesson plan. It saves your profile between sessions so you don't repeat yourself.
-
-**One focus per month.** The reflection ends with a single next-month focus. One thing. If you try to move on all dimensions simultaneously you'll move on none of them.
+**Monthly reflection** is optional. If you've been practicing for a month and want a quick self-check before your next session, fill out `monthly-reflection.md` and bring it to the session — the Coach will use it to accelerate profiling.
 
 ---
 
@@ -53,10 +46,10 @@ Open Claude Code in this directory and start a session. `CLAUDE.md` activates Th
 
 | File | What it does | How to use it |
 |---|---|---|
-| [`scorecard.md`](./scorecard.md) | Defines where you are in the journey across four dimensions (Good / Better / Best) | Open when self-placing; close it after |
-| [`monthly-reflection.md`](./monthly-reflection.md) | Helps evaluate which activities you did and identifies what to focus on next month | Copy to a new file each month and fill it in (~15 min) |
-| [`stack-examples.md`](./stack-examples.md) | Shows what each level looks like in your actual stack so you can self-place accurately | Reference when a scorecard level feels abstract |
-| [`CLAUDE.md`](./CLAUDE.md) | Activates The Coach — profiles you, identifies gaps, builds a lesson plan, remembers where you left off | Open Claude Code in this directory and start a session |
+| [`scorecard.md`](./scorecard.md) | Defines where you are in the journey across four dimensions | Read by the Coach during profiling; reference if you want to understand your placement |
+| [`level-playbooks.md`](./level-playbooks.md) | Vivid narratives of what working at each level looks and feels like day-to-day | The Coach references this to show you your current level and destination |
+| [`monthly-reflection.md`](./monthly-reflection.md) | Helps evaluate which activities you did and identifies what to focus on next month | Optional: fill in monthly, bring to your next session |
+| [`CLAUDE.md`](./CLAUDE.md) | Activates The Coach — profiles you, places you, and gives you a roadmap | Open Claude Code in this directory and start a session |
 
 ---
 
@@ -70,3 +63,5 @@ Open Claude Code in this directory and start a session. `CLAUDE.md` activates Th
 | **QA** | Tests written after implementation, manually | Test plan before coding, agentic QA runs | Playwright/API/mobile agentic testing, peer-reviewed test plans | TDD + implementation subagent in parallel, Playwright verification before every commit |
 | **Skills & Community** | Techniques personal, not yet shared | Monthly post, uses Agentic Review | Checked-in Skills approved by L4 dev | Skills adopted cross-team, writes honestly about the AI journey |
 | **Leadership & Adoption** | AI use invisible to teammates | Visible sharing in PRs/Slack/demos | Workshops and structured knowledge transfer | 1–2 engineers adopt a new workflow; writing becomes a team reference |
+
+---

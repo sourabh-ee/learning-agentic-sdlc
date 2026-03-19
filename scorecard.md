@@ -2,7 +2,7 @@
 
 **Prompting** is where most engineers on the team are today. Each level above it represents a meaningful shift in how you work — not just how much you use AI.
 
-Place yourself at the level that describes your *consistent* practice — not your best day or your aspiration.
+The Coach uses this rubric to place you based on your actual recent practice — not self-assessment.
 
 | Dimension | Prompting | Orchestrating | Engineering | Pioneering |
 |---|---|---|---|---|
@@ -13,7 +13,7 @@ Place yourself at the level that describes your *consistent* practice — not yo
 
 ## Further Reading
 
-- **Stack examples** (React/TS, Node/GraphQL, Java/Kotlin, Playwright/Jest, iOS/Android) → [`stack-examples.md`](./stack-examples.md)
+- **Level playbooks** (vivid day-to-day narratives per level) → [`level-playbooks.md`](./level-playbooks.md)
 - **Monthly check-in template** → [`monthly-reflection.md`](./monthly-reflection.md)
 - **Harness engineering** → [Mitchell Hashimoto's AI adoption journey](https://mitchellh.com/writing/my-ai-adoption-journey#step-5-engineer-the-harness)
 - **Agentic coding patterns** → [OpenAI: Harness Engineering](https://openai.com/index/harness-engineering/)
