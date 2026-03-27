@@ -61,23 +61,21 @@ This is a **static analysis** — you read CLAUDE.md and verify it still encodes
 **Scenario 1: `first-session-no-history.md`**
 
 Read CLAUDE.md. Verify:
-- [ ] Step 1B spawns profile-scanner
-- [ ] Step 2 checks MEMORY.md (already in context) for profile entry
-- [ ] Step 3 introduces Coach before narrative prompt
-- [ ] Scribe Setup section exists and triggers on first session
-- [ ] Scribe Setup instructs copying `.claude/coach-scribe.sh` template
-- [ ] Narrative prompt is asked after scribe offer
+- [ ] Step 1 introduces Coach immediately before reading any files
+- [ ] Step 2 reads framework files and spawns profile-scanner
+- [ ] Step 3 checks MEMORY.md (already in context) for profile entry
+- [ ] Step 4 opens with narrative prompt after checking memory
 - [ ] All 8 atomic probes are present in the profiling table
 - [ ] Closing section writes auto memory topic files (memory/profile.md, memory/placement.md, memory/commitments.md, memory/preferences.md)
 
 **Scenario 2: `returning-engineer.md`**
 
 Read CLAUDE.md. Verify:
-- [ ] Step 2 checks MEMORY.md (already in context) for profile entry, greets by name if present
-- [ ] Step 2 asks about last commitment before anything else
-- [ ] Step 1B instructs skipping probes from "SKIP THESE PROBES" list
-- [ ] progress-analyst is spawned when coach-observations.jsonl exists
-- [ ] Scribe is not offered to returning engineer (MEMORY.md has profile entry → first-session gate doesn't fire)
+- [ ] Step 3 checks MEMORY.md (already in context) for profile entry, greets by name if present
+- [ ] Step 3 asks about last commitment before anything else
+- [ ] Step 2 instructs skipping probes from "SKIP THESE PROBES" list
+- [ ] progress-analyst is spawned when history_available = true
+- [ ] Progress Analysis section exists and describes how to use the report
 
 **Scenario 3: `advanced-gap-trigger.md`**
 
@@ -87,13 +85,6 @@ Read CLAUDE.md. Verify:
 - [ ] D1 threshold is "Directing or above" (not Orchestrating)
 - [ ] D2 handoff is delivered AFTER course-designer finishes (not before)
 - [ ] Declining course generation is noted in memory/courses.md in auto memory
-
-**Scenario 4: `scribe-offer-declined.md`**
-
-Read CLAUDE.md. Verify:
-- [ ] Scribe Setup writes `scribe_declined: true` to memory/preferences.md on decline
-- [ ] Closing Each Session writes memory/preferences.md with scribe_declined
-- [ ] No instruction re-offers scribe if scribe_declined is set
 
 ---
 
@@ -149,9 +140,8 @@ PART 2: PROTOCOL COMPLIANCE
 │ Scenario                     │ Result │ Notes                      │
 ├──────────────────────────────┼────────┼────────────────────────────┤
 │ first-session-no-history     │ PASS   │                            │
-│ returning-engineer           │ FAIL   │ scribe_declined guard miss  │
+│ returning-engineer           │ PASS   │                            │
 │ advanced-gap-trigger         │ PASS   │                            │
-│ scribe-offer-declined        │ PASS   │                            │
 └──────────────────────────────┴────────┴────────────────────────────┘
 
 PART 3: AUTO MEMORY STRUCTURE
@@ -162,11 +152,10 @@ PART 3: AUTO MEMORY STRUCTURE
 │ scan-cache-warm              │        │                            │
 └──────────────────────────────┴────────┴────────────────────────────┘
 
-OVERALL: 8/9 PASS
+OVERALL: 7/8 PASS
 
 FAILURES TO FIX:
 1. orchestrating fixture: profile-scanner returned Directing for Workflow — check Task tool signal detection
-2. returning-engineer: CLAUDE.md Scribe Setup section missing guard for scribe_declined
 ```
 
 If all tests pass, print: `ALL CLEAR — safe to ship`

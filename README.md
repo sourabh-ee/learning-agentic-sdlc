@@ -46,10 +46,6 @@ That's it. The Coach introduces itself, explains what it can do, and takes it fr
 
 **On first session**, The Coach reads your local Claude Code session history (`~/.claude/projects/`) to infer your level before asking any questions. No permission needed — this is local to your machine and never leaves it. If you're running this on a fresh machine with no history, it falls back to a full interview.
 
-**Optionally**, it can set up a lightweight scribe — a local hook that logs which AI tools you use (SubAgent, MCP, Skills) to `~/.claude/coach-observations.jsonl`. This lets The Coach track your progress over time automatically. It's opt-in, local-only, and uninstalls with two commands.
-
-Nothing is sent anywhere. Everything stays in `~/.claude/` on your machine.
-
 ---
 
 ## How to Use It
