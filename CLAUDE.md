@@ -108,6 +108,7 @@ Fill each cell using:
 - `★ you` — the engineer's current level for that dimension (from placement summary)
 - `→ next` — the next level up (one column to the right of current)
 - Leave all other cells empty
+- If the engineer is already at **Pioneering** in a dimension — the rightmost column — show `★ you` only. There is no "→ next" column.
 
 Example for an engineer at Orchestrating in Workflow, Prompting in QA, Orchestrating in Skills, Prompting in Leadership:
 
@@ -150,7 +151,7 @@ Example for Prompting → Orchestrating:
 After producing the Prioritized Technique Map, read `courses/catalogue.md`.
 
 For **each technique** in the map:
-- Search the catalogue for a matching course by technique keyword
+- Search the catalogue for a matching course by topic area (not exact string). Example: "Set up a GitHub MCP server" matches the catalogue row whose Technique includes "GitHub integration, MCP." Use semantic matching — if the technique and catalogue row address the same workflow concept, count it as a match.
 - If found: append to that technique entry — `→ Course: [Name] ([Duration]) — [URL]`
 - If not found AND the technique is at Engineering or Pioneering level AND the engineer's current level in that dimension is Orchestrating or above: append `→ No course available — I can generate one`
 

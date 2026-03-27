@@ -45,7 +45,7 @@ claude
 Open Claude Code in this directory and start a session. The Coach will profile you through a narrative conversation — not a questionnaire. It identifies your gaps, places you on the scorecard, and gives you a prioritised technique map to reach the next level. Your profile is saved to `my-profile.md` (git-ignored) so you don't repeat yourself between sessions.
 
 **Sample Conversations**
-Have a look at these conversations to understand how you can communicate with the Coach and what kind of feedback you might expect. Ofcourse the Coach is an LLM so you can ask and have it respond in a way that suits you best (e.g. in a varhadi marathi dialect)
+Have a look at these conversations to understand how you can communicate with the Coach and what kind of feedback you might expect. Of course the Coach is an LLM so you can ask and have it respond in a way that suits you best (e.g. in a varhadi marathi dialect)
 
 **Level Playbooks**
 Post profiling, you can look at the Level Playbooks to understand what each level looks like at a high level and relevance to you tech stack.

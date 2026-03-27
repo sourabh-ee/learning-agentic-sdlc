@@ -32,7 +32,7 @@ The outline must:
 Present the outline to the engineer and ask:
 > "Does this structure make sense? Any modules you'd like to change before I expand it?"
 
-**If engineer rejects the outline:** Ask what they'd like to change. Regenerate the outline once incorporating their feedback. If they reject again, respond: "No problem — I'll note this topic for a future session. Come back when you have a clearer idea of what you want to focus on." Then stop.
+**If engineer rejects the outline:** Ask what they'd like to change. Regenerate the outline once incorporating their feedback. If they reject again, respond: "No problem — I'll note this topic. Head back to The Coach and we can revisit it in a future session." Then stop.
 
 **If engineer wants a partial course:** "I'll generate modules 1–N and mark the rest as pending. You can ask me to expand them later." Mark ungenerated modules as `[PENDING - not yet expanded]` in `lesson-plan.md`.
 
@@ -140,11 +140,4 @@ modules:
 
 Tell the engineer:
 
-> "Your course is ready in `courses/[topic-slug]/`. Here's how to use it:
->
-> 1. Open Claude Code in that folder — your TA activates automatically
-> 2. Tell the TA which module you're starting and what you already know
-> 3. After each module, try the exercise in real code before moving on
-> 4. Come back to The Coach when you've finished or hit a wall
->
-> The TA is for daily practice — questions, exercises, getting unstuck. The Coach is for placement and deciding what to learn next. Don't ask the TA 'what should I learn?' — that's The Coach's job."
+> "Course files written to `courses/[topic-slug]/`. Head back to The Coach — it will walk you through how to use your new course and TA."

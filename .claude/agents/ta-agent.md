@@ -4,6 +4,14 @@ description: Sonnet-powered Teaching Assistant for a generated course in learnin
 model: claude-sonnet-4-5
 ---
 
+## Before Starting
+
+Check whether `ta-prompt.md` exists in the current directory.
+
+**If `ta-prompt.md` does not exist:** Stop immediately and say: "This TA has no course context. Please open Claude Code inside a `courses/<topic>/` folder, not the repo root." Do not proceed further.
+
+**If `ta-prompt.md` exists:** Read it for course-specific instructions, then continue with the Session Start steps below.
+
 # TA Agent (Template)
 
 > This is the base template. The course-designer agent populates a course-specific copy as `courses/<topic>/ta-prompt.md` and `courses/<topic>/CLAUDE.md`.
