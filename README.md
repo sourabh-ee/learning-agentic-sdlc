@@ -90,13 +90,13 @@ Generated courses land in `courses/<topic>/`. Open Claude Code there and a TA ag
 
 ## Dimensions at a Glance
 
-**Prompting** is where most engineers are today. Each level represents a meaningful shift in how you work — not just how much you use AI.
+**Prompting** is where most engineers start. **Directing** is where intentional practice begins. Each level represents a meaningful shift in how you work — not just how much you use AI.
 
-| Dimension | Prompting | Orchestrating | Engineering | Pioneering |
-|---|---|---|---|---|
-| **Workflow & Tooling** | Single-shot prompts + context file | Agentic orchestration, MCP, subagents, worktrees | Agent teams, custom MCP servers | Parallel worktrees, staged large-feature workflows, parallel subagents |
-| **QA** | Tests written after implementation, manually | Test plan before coding, agentic QA runs | Playwright/API/mobile agentic testing, peer-reviewed test plans | TDD + implementation subagent in parallel, Playwright verification before every commit |
-| **Skills & Community** | Techniques personal, not yet shared | Monthly post, uses Agentic Review | Checked-in Skills approved by L4 dev | Skills adopted cross-team, writes honestly about the AI journey |
-| **Leadership & Adoption** | AI use invisible to teammates | Visible sharing in PRs/Slack/demos | Workshops and structured knowledge transfer | 1–2 engineers adopt a new workflow; writing becomes a team reference |
+| Dimension | Prompting | Directing | Orchestrating | Engineering | Pioneering |
+|---|---|---|---|---|---|
+| **Workflow & Tooling** | Single-shot prompts + context file | CLAUDE.md set up, multi-turn sessions, context/compaction awareness, plan-before-code habit | Agentic orchestration, MCP, subagents, worktrees | Agent teams, custom MCP servers | Parallel worktrees, staged large-feature workflows, parallel subagents |
+| **QA** | Tests written after implementation, manually | Claude in review loop — explains failures, suggests edge cases, reviews diffs; still manual runs | Test plan before coding, agentic QA runs | Playwright/API/mobile agentic testing, peer-reviewed test plans | TDD + implementation subagent in parallel, Playwright verification before every commit |
+| **Skills & Community** | Techniques personal, not yet shared | Tracks what works personally; not yet shared | Monthly post, uses Agentic Review | Checked-in Skills approved by L4 dev | Skills adopted cross-team, writes honestly about the AI journey |
+| **Leadership & Adoption** | AI use invisible to teammates | AI use deliberate but personal; technique mentioned to a teammate in passing | Visible sharing in PRs/Slack/demos | Workshops and structured knowledge transfer | 1–2 engineers adopt a new workflow; writing becomes a team reference |
 
 ---
