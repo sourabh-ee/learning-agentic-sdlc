@@ -34,7 +34,11 @@ Open Claude Code in this directory:
 claude
 ```
 
-`CLAUDE.md` activates automatically. The Coach will read the framework files, check for your profile, and guide you through a profiling session. Your placement, technique map, and session commitment are saved to `my-profile.md` between sessions.
+`CLAUDE.md` activates automatically. Then just say:
+
+> **"Hi, I want to learn effective AI"**
+
+That's it. The Coach introduces itself, explains what it can do, and takes it from there. Your placement, technique map, and session commitment are saved to `my-profile.md` between sessions.
 
 > **Prerequisite:** [Claude Code](https://claude.ai/code) installed and authenticated.
 
