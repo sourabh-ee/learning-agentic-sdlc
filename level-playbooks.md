@@ -7,6 +7,31 @@ These playbooks describe what working at each level actually looks and feels lik
 
 ---
 
+## Directing
+
+### What it feels like
+
+You've stopped treating Claude as a search engine. When a new task comes in, your first move isn't to open a file — it's to make sure Claude has what it needs: the stack, the conventions, what not to touch. Your CLAUDE.md is real, not a placeholder. You update it when you learn something about your codebase that Claude got wrong.
+
+You understand why things go wrong. When Claude hallucinates an import or misses an edge case, you can diagnose it — missing context, a vague instruction, a thread that ran too long. You know when to `/clear`, when to summarise, and what happens when you don't. Compaction isn't a mystery anymore.
+
+Your daily habits have shifted in a few concrete ways: you ask for a breakdown before the first line of code. You read the diff before accepting it. You ask "what else could go wrong?" before you call something done. You're not necessarily faster yet — the discipline takes practice — but what Claude produces is noticeably more useful because you're giving it what it actually needs.
+
+You're not running agents or worktrees. This is still one session, one task. But it's a structured session with a clear outcome, not a collection of disconnected prompts hoping something sticks.
+
+### What QA looks like
+
+Claude is in the loop before tests run, not after they fail. You ask it to review your diff for edge cases before you write tests, and you ask it to explain failures before you start digging. Test execution is still manual — no agentic runs yet. But the loop is tighter: Claude catches things you would have caught in code review.
+
+### Stack snapshots
+
+- **Web (React/TS):** Agent reviews the component diff for missed loading states, prop-type gaps, or accessibility issues before the PR is opened — caught in the IDE, not in review.
+- **Backend (Node/GraphQL, Java/Kotlin):** Agent explains a failing resolver or unit test and identifies the likely root cause before the engineer opens the debugger.
+- **iOS (Swift/SwiftUI):** Agent reviews a Swift diff for force-unwraps, missing nil checks, or incorrect lifecycle scope before the build is submitted.
+- **Android (Kotlin):** Agent flags null safety violations and incorrect coroutine scope usage in the diff, before the engineer runs the emulator.
+
+---
+
 ## Orchestrating
 
 ### What it feels like
