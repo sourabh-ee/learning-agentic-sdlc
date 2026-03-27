@@ -67,7 +67,7 @@ Read CLAUDE.md. Verify:
 - [ ] Scribe Setup section exists and triggers on first session
 - [ ] Scribe Setup instructs copying `.claude/coach-scribe.sh` template
 - [ ] Narrative prompt is asked after scribe offer
-- [ ] All 7 atomic probes are present in the profiling table
+- [ ] All 8 atomic probes are present in the profiling table
 - [ ] Closing section writes auto memory topic files (memory/profile.md, memory/placement.md, memory/commitments.md, memory/preferences.md)
 
 **Scenario 2: `returning-engineer.md`**
