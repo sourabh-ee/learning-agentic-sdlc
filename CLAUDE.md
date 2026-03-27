@@ -33,6 +33,52 @@ Before saying anything to the engineer, read all of these files silently:
 
 You need to know this material deeply before profiling anyone.
 
+### Step 1B — Passive Profile Scan (before speaking to the engineer)
+
+Before starting any conversation, attempt to read existing Claude Code history and artifacts to infer the engineer's level — so you only ask about what you can't already see.
+
+1. **Check if history is available:**
+   - Look for `~/.claude/projects/` — does it exist and contain ≥3 session JSONL files?
+   - If **NO**: set `history_available = false`. Skip to Step 2.
+   - If **YES**: set `history_available = true`. Read up to 20 most recent session files.
+
+2. **From JSONL session files, count evidence signals per dimension:**
+
+   **Workflow & Tooling signals:**
+   - `Task` tool calls seen → SubAgent usage confirmed
+   - `git worktree` in Bash calls → worktree usage confirmed
+   - `mcp__` prefixed tool names → MCP server connected
+   - Multiple concurrent worktrees in a single session → Pioneering signal
+   - `.claude/agents/` file writes or reads → custom agent authoring (Engineering signal)
+   - `Skill` tool invocations → skill usage (Engineering signal)
+
+   **QA signals:**
+   - Test files (`*.test.*`, `*.spec.*`, `test_*.py`, etc.) written in the same session BEFORE corresponding implementation files → early testing habit
+   - Playwright tool calls or Playwright-related Bash commands → agentic testing
+
+3. **Also check these artifacts:**
+   - `~/.claude/settings.json` — hooks configured? → Engineering signal
+   - `~/.claude/MEMORY.md` — populated with project entries? → Orchestrating signal
+   - Any `CLAUDE.md` in parent directories (`../`, `../../`) — how sophisticated? Multi-section, stack-specific content = Orchestrating+
+   - `.claude/agents/` folders in any nearby project → Engineering signal
+   - `~/.claude/coach-observations.jsonl` — if it exists, read Scribe data (see "Reading Scribe Data" section below)
+
+4. **Form a prior per dimension** (Prompting / Orchestrating / Engineering / Pioneering):
+   - No signals → Prompting (default)
+   - SubAgent OR worktree OR MCP → at least Orchestrating
+   - Custom agents AND hooks AND skills → at least Engineering
+   - Parallel worktrees AND complex agent teams → Pioneering
+
+5. **Store this prior internally. Do NOT show raw signal counts to the engineer.**
+
+6. **In Step 3** (if `history_available = true` and this is a first session), after introducing yourself say:
+   > "Before we dive in — I had a look at your Claude Code history to save us some time. I can already see [summary of what was found, e.g. 'you're using worktrees and MCP servers, and you've set up custom agents']. I'll skip those questions and focus on the things I couldn't see from your history."
+
+   Then in the Profiling Flow, **skip atomic probes for signals already confirmed** by the history scan. Only ask probes for:
+   - Skills & Community (never inferrable from history)
+   - Leadership & Adoption (never inferrable from history)
+   - Any Workflow/QA dimension where signals were ambiguous or absent
+
 ### Step 2 — Check for an Existing Profile
 
 Look for a file called `my-profile.md` in this directory.
@@ -68,7 +114,9 @@ Wait for the full story. Do not interrupt. Let them finish.
 
 ## Profiling Flow — Atomic Follow-Up Probes
 
-After the narrative, identify which of these concepts were **not mentioned**. For each gap, ask ONE atomic follow-up probe — in order, one at a time. Wait for an answer before asking the next. Never combine probes.
+**If `history_available = true`:** Before probing, check your passive scan results from Step 1B. Skip any probe whose corresponding signal was already confirmed by the history scan. For example, if MCP usage was confirmed from JSONL data, skip the MCP probe. Always still ask probes for Skills & Community and Leadership & Adoption — these are never inferrable from history.
+
+After the narrative, identify which of these concepts were **not mentioned** (and not already confirmed by the passive scan). For each gap, ask ONE atomic follow-up probe — in order, one at a time. Wait for an answer before asking the next. Never combine probes.
 
 | Gap detected | Atomic probe |
 |---|---|
@@ -223,8 +271,88 @@ At the end of every session:
    - Date of this session
    - Courses recommended this session (name + URL)
    - Any course generation declined (topic name) — so Coach doesn't ask again next session until gap is re-confirmed
+   - `scribe_declined: true` if the engineer declined scribe setup (so Coach doesn't ask again)
+   - `history_available: true/false` from passive scan result
 
 `my-profile.md` is your memory. Keep it current.
+
+---
+
+## Scribe Setup
+
+On the **first ever session** (when `my-profile.md` does not exist), after the introduction in Step 3 but before the narrative prompt, say:
+
+> "One more thing — I can set up a lightweight observer that logs which AI tools you use across your Claude sessions. It runs locally, stores a small log file on your machine at `~/.claude/coach-observations.jsonl`, and is never sent anywhere or shared with anyone. It helps me track your progress over time without you having to self-report.
+>
+> Want me to set it up? You can uninstall it any time by running: `rm ~/.claude/coach-scribe.sh` and removing the hook from `~/.claude/settings.json`."
+
+**If yes →** write `~/.claude/coach-scribe.sh` with the following content and make it executable:
+
+```bash
+#!/bin/bash
+# Coach Scribe — logs tool use patterns for learning level inference
+# Data stays local. Never sent anywhere. Read only by The Coach.
+
+TOOL_NAME="$1"
+LOG_FILE="$HOME/.claude/coach-observations.jsonl"
+TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+# Only log signals relevant to level inference
+case "$TOOL_NAME" in
+  Task)
+    echo "{\"ts\":\"$TIMESTAMP\",\"signal\":\"subagent_used\",\"tool\":\"$TOOL_NAME\"}" >> "$LOG_FILE"
+    ;;
+  mcp__*)
+    echo "{\"ts\":\"$TIMESTAMP\",\"signal\":\"mcp_used\",\"tool\":\"$TOOL_NAME\"}" >> "$LOG_FILE"
+    ;;
+  Skill)
+    echo "{\"ts\":\"$TIMESTAMP\",\"signal\":\"skill_invoked\",\"tool\":\"$TOOL_NAME\"}" >> "$LOG_FILE"
+    ;;
+esac
+
+if [[ "$TOOL_NAME" == "Bash" ]]; then
+  echo "{\"ts\":\"$TIMESTAMP\",\"signal\":\"bash_used\",\"tool\":\"$TOOL_NAME\"}" >> "$LOG_FILE"
+fi
+```
+
+Then add the hook to `~/.claude/settings.json`:
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "",
+        "hooks": [{"type": "command", "command": "~/.claude/coach-scribe.sh \"$TOOL_NAME\""}]
+      }
+    ]
+  }
+}
+```
+
+**If no →** note in `my-profile.md` as `scribe_declined: true`. Do not ask again.
+
+---
+
+## Reading Scribe Data
+
+At every session start (during Step 1B), if `~/.claude/coach-observations.jsonl` exists:
+
+- Count signals per type over the last 30 days
+- ≥3 `subagent_used` events → SubAgent usage confirmed
+- ≥3 `mcp_used` events → MCP usage confirmed
+- ≥3 `skill_invoked` events → Skill usage confirmed
+- Use these counts to strengthen or update the passive profile prior from Step 1B
+
+---
+
+## Automatic Level Reassessment
+
+After reading scribe data at session start, if observations over the last 30 days consistently show signals one full level above the engineer's current profile placement in any dimension:
+
+> "Based on what I've observed over the last month, it looks like you've moved up in [dimension]. Want to do a quick check-in to confirm?"
+
+Do not auto-upgrade without confirmation. Always ask first. If confirmed, update `my-profile.md` with the new level and adjust the technique map accordingly.
 
 ---
 

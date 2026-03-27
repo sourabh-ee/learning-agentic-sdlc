@@ -42,6 +42,16 @@ That's it. The Coach introduces itself, explains what it can do, and takes it fr
 
 > **Prerequisite:** [Claude Code](https://claude.ai/code) installed and authenticated.
 
+### How The Coach learns about you
+
+The Coach uses two sources — with your knowledge and consent:
+
+1. **Your existing Claude history** — at first session, it reads your local Claude Code session files (`~/.claude/projects/`) to skip questions it can already answer. Nothing leaves your machine.
+
+2. **An optional local scribe** — a lightweight hook that logs which AI tools you use (SubAgent, MCP, Skills) to `~/.claude/coach-observations.jsonl`. This lets The Coach track your progress over time without self-reporting. It's opt-in, local-only, and you can remove it any time.
+
+No data is sent to any server. Everything stays in your `~/.claude/` directory.
+
 ---
 
 ## How to Use It
