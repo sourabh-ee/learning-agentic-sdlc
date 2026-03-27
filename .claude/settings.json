@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(~/.claude/projects/**)",
+      "Read(~/.claude/settings.json)",
+      "Read(~/.claude/MEMORY.md)",
+      "Read(~/.claude/coach-observations.jsonl)",
+      "Write(~/.claude/coach-scribe.sh)",
+      "Write(~/.claude/coach-observations.jsonl)"
+    ]
+  }
+}
