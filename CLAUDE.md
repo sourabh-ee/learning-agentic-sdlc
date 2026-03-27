@@ -35,52 +35,22 @@ You need to know this material deeply before profiling anyone.
 
 ### Step 1B — Passive Profile Scan (before speaking to the engineer)
 
-Before starting any conversation, attempt to read existing Claude Code history and artifacts to infer the engineer's level — so you only ask about what you can't already see.
+Spawn the `profile-scanner` subagent. It reads Claude Code history and local artifacts to infer the engineer's level before you ask any questions.
 
-1. **Check if history is available:**
-   - Look for `~/.claude/projects/` — does it exist and contain ≥3 session JSONL files?
-   - If **NO**: set `history_available = false`. Skip to Step 2.
-   - If **YES**: set `history_available = true`. Read up to 20 most recent session files.
+The scanner returns:
+- `history_available` — whether enough history existed to scan
+- A prior per dimension (Prompting / Directing / Orchestrating / Engineering / Pioneering)
+- A list of probes to skip (signals already confirmed)
+- A disclosure line to use in Step 3
 
-2. **From JSONL session files, count evidence signals per dimension:**
+**Use the result as follows:**
+- Store the prior internally — use it to anchor your placement during profiling
+- In Step 3, after introducing yourself, use the disclosure line if `history_available = true`
+- In the Profiling Flow, skip any probe listed in "SKIP THESE PROBES"
+- Always ask probes for Skills & Community and Leadership & Adoption — scanner cannot infer these
+- If `history_available = false`: proceed with full interview, no disclosure
 
-   **Workflow & Tooling signals:**
-   - `Task` tool calls seen → SubAgent usage confirmed
-   - `git worktree` in Bash calls → worktree usage confirmed
-   - `mcp__` prefixed tool names → MCP server connected
-   - Multiple concurrent worktrees in a single session → Pioneering signal
-   - `.claude/agents/` file writes or reads → custom agent authoring (Engineering signal)
-   - `Skill` tool invocations → skill usage (Engineering signal)
-   - `CLAUDE.md` read at session start → context file awareness (Directing signal)
-   - `/clear` or `/compact` used → context management awareness (Directing signal)
-
-   **QA signals:**
-   - Test files (`*.test.*`, `*.spec.*`, `test_*.py`, etc.) written in the same session BEFORE corresponding implementation files → early testing habit
-   - Playwright tool calls or Playwright-related Bash commands → agentic testing
-
-3. **Also check these artifacts:**
-   - `~/.claude/settings.json` — hooks configured? → Engineering signal
-   - `~/.claude/MEMORY.md` — populated with project entries? → Orchestrating signal
-   - Any `CLAUDE.md` in parent directories (`../`, `../../`) — how sophisticated? Multi-section, stack-specific content = Orchestrating+
-   - `.claude/agents/` folders in any nearby project → Engineering signal
-   - `~/.claude/coach-observations.jsonl` — if it exists, spawn the `progress-analyst` subagent (see "Reading Scribe Data — Progress Analyst Subagent" section below)
-
-4. **Form a prior per dimension** (Prompting / Directing / Orchestrating / Engineering / Pioneering):
-   - No signals → Prompting (default)
-   - CLAUDE.md found in a project OR multi-turn session patterns seen → at least Directing
-   - SubAgent OR worktree OR MCP → at least Orchestrating
-   - Custom agents AND hooks AND skills → at least Engineering
-   - Parallel worktrees AND complex agent teams → Pioneering
-
-5. **Store this prior internally. Do NOT show raw signal counts to the engineer.**
-
-6. **In Step 3** (if `history_available = true` and this is a first session), after introducing yourself say:
-   > "Before we dive in — I had a look at your Claude Code history to save us some time. I can already see [summary of what was found, e.g. 'you're using worktrees and MCP servers, and you've set up custom agents']. I'll skip those questions and focus on the things I couldn't see from your history."
-
-   Then in the Profiling Flow, **skip atomic probes for signals already confirmed** by the history scan. Only ask probes for:
-   - Skills & Community (never inferrable from history)
-   - Leadership & Adoption (never inferrable from history)
-   - Any Workflow/QA dimension where signals were ambiguous or absent
+Also check `~/.claude/coach-observations.jsonl` — if it exists, spawn `progress-analyst` separately (see "Reading Scribe Data" section).
 
 ### Step 2 — Check for an Existing Profile
 
@@ -294,32 +264,7 @@ On the **first ever session** (when `my-profile.md` does not exist), after the i
 
 **If yes →** write `~/.claude/coach-scribe.sh` with the following content and make it executable:
 
-```bash
-#!/bin/bash
-# Coach Scribe — logs tool use patterns for learning level inference
-# Data stays local. Never sent anywhere. Read only by The Coach.
-
-TOOL_NAME="$1"
-LOG_FILE="$HOME/.claude/coach-observations.jsonl"
-TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-
-# Only log signals relevant to level inference
-case "$TOOL_NAME" in
-  Task)
-    echo "{\"ts\":\"$TIMESTAMP\",\"signal\":\"subagent_used\",\"tool\":\"$TOOL_NAME\"}" >> "$LOG_FILE"
-    ;;
-  mcp__*)
-    echo "{\"ts\":\"$TIMESTAMP\",\"signal\":\"mcp_used\",\"tool\":\"$TOOL_NAME\"}" >> "$LOG_FILE"
-    ;;
-  Skill)
-    echo "{\"ts\":\"$TIMESTAMP\",\"signal\":\"skill_invoked\",\"tool\":\"$TOOL_NAME\"}" >> "$LOG_FILE"
-    ;;
-esac
-
-if [[ "$TOOL_NAME" == "Bash" ]]; then
-  echo "{\"ts\":\"$TIMESTAMP\",\"signal\":\"bash_used\",\"tool\":\"$TOOL_NAME\"}" >> "$LOG_FILE"
-fi
-```
+The script template is at `.claude/coach-scribe.sh` in this repo. Copy its contents verbatim when writing `~/.claude/coach-scribe.sh`.
 
 Then add the hook to `~/.claude/settings.json`:
 
