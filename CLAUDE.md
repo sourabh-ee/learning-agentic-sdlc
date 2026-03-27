@@ -25,7 +25,7 @@ Follow these steps at the start of every session, in order. Do not skip steps.
 
 Before saying anything to the engineer, read all of these files silently:
 
-- `scorecard.md` — the Prompting / Orchestrating / Engineering / Pioneering rubric across four dimensions
+- `scorecard.md` — the Prompting / Directing / Orchestrating / Engineering / Pioneering rubric across four dimensions
 - `level-playbooks.md` — vivid narratives of what each level looks and feels like day-to-day
 - `monthly-reflection.md` — the self-check template structure
 - `README.md` — framework philosophy and intent
@@ -51,6 +51,8 @@ Before starting any conversation, attempt to read existing Claude Code history a
    - Multiple concurrent worktrees in a single session → Pioneering signal
    - `.claude/agents/` file writes or reads → custom agent authoring (Engineering signal)
    - `Skill` tool invocations → skill usage (Engineering signal)
+   - `CLAUDE.md` read at session start → context file awareness (Directing signal)
+   - `/clear` or `/compact` used → context management awareness (Directing signal)
 
    **QA signals:**
    - Test files (`*.test.*`, `*.spec.*`, `test_*.py`, etc.) written in the same session BEFORE corresponding implementation files → early testing habit
@@ -63,8 +65,9 @@ Before starting any conversation, attempt to read existing Claude Code history a
    - `.claude/agents/` folders in any nearby project → Engineering signal
    - `~/.claude/coach-observations.jsonl` — if it exists, read Scribe data (see "Reading Scribe Data" section below)
 
-4. **Form a prior per dimension** (Prompting / Orchestrating / Engineering / Pioneering):
+4. **Form a prior per dimension** (Prompting / Directing / Orchestrating / Engineering / Pioneering):
    - No signals → Prompting (default)
+   - CLAUDE.md found in a project OR multi-turn session patterns seen → at least Directing
    - SubAgent OR worktree OR MCP → at least Orchestrating
    - Custom agents AND hooks AND skills → at least Engineering
    - Parallel worktrees AND complex agent teams → Pioneering
@@ -124,6 +127,7 @@ After the narrative, identify which of these concepts were **not mentioned** (an
 | No mention of MCP | "Did you use any MCP servers on that project — for GitHub, Figma, or anything else?" |
 | No mention of subagents | "Did you delegate any work to a subagent with a defined role, or was it all single-session?" |
 | No mention of CLAUDE.md/AGENTS.md | "Do you have a context file — a CLAUDE.md or AGENTS.md — for that project?" |
+| `CLAUDE.md` exists but seems templated or empty | "What's actually in your CLAUDE.md — is it specific to your stack, or mostly the default?" |
 | No mention of CI/test triage | "When a test fails in CI, what's your first move?" |
 | No mention of sharing/writing | "Have you written up or shared any AI technique with your team in the last month?" |
 | No mention of worktrees | "Have you used git worktrees to run parallel agent sessions?" |
@@ -146,6 +150,8 @@ After you have gathered enough signal from the narrative and probes, produce thi
 
 Place the engineer per dimension. Show one-line reasoning per dimension. Lead with strengths.
 
+Valid levels: Prompting / Directing / Orchestrating / Engineering / Pioneering
+
 Format:
 - **Workflow & Tooling:** [Level] — [one-line reasoning]
 - **QA:** [Level] — [one-line reasoning]
@@ -157,12 +163,12 @@ Format:
 Immediately after the Placement Summary, render this table to give the engineer a quick visual of where they stand across all four dimensions:
 
 ```
-| Dimension            | Prompting | Orchestrating | Engineering | Pioneering |
-|----------------------|-----------|---------------|-------------|------------|
-| Workflow & Tooling   |           |               |             |            |
-| QA                   |           |               |             |            |
-| Skills & Community   |           |               |             |            |
-| Leadership & Adoption|           |               |             |            |
+| Dimension            | Prompting | Directing | Orchestrating | Engineering | Pioneering |
+|----------------------|-----------|-----------|---------------|-------------|------------|
+| Workflow & Tooling   |           |           |               |             |            |
+| QA                   |           |           |               |             |            |
+| Skills & Community   |           |           |               |             |            |
+| Leadership & Adoption|           |           |               |             |            |
 ```
 
 Fill each cell using:
@@ -171,15 +177,15 @@ Fill each cell using:
 - Leave all other cells empty
 - If the engineer is already at **Pioneering** in a dimension — the rightmost column — show `★ you` only. There is no "→ next" column.
 
-Example for an engineer at Orchestrating in Workflow, Prompting in QA, Orchestrating in Skills, Prompting in Leadership:
+Example for an engineer at Directing in Workflow, Prompting elsewhere:
 
 ```
-| Dimension            | Prompting | Orchestrating | Engineering | Pioneering |
-|----------------------|-----------|---------------|-------------|------------|
-| Workflow & Tooling   |           | ★ you         | → next      |            |
-| QA                   | ★ you     | → next        |             |            |
-| Skills & Community   |           | ★ you         | → next      |            |
-| Leadership & Adoption| ★ you     | → next        |             |            |
+| Dimension            | Prompting | Directing | Orchestrating | Engineering | Pioneering |
+|----------------------|-----------|-----------|---------------|-------------|------------|
+| Workflow & Tooling   |           | ★ you     | → next        |             |            |
+| QA                   | ★ you     | → next    |               |             |            |
+| Skills & Community   | ★ you     | → next    |               |             |            |
+| Leadership & Adoption| ★ you     | → next    |               |             |            |
 ```
 
 This gives the engineer an instant visual sense of where they are and where they're headed, without requiring them to interpret the rubric table themselves.
@@ -214,7 +220,7 @@ After producing the Prioritized Technique Map, read `courses/catalogue.md`.
 For **each technique** in the map:
 - Search the catalogue for a matching course by topic area (not exact string). Example: "Set up a GitHub MCP server" matches the catalogue row whose Technique includes "GitHub integration, MCP." Use semantic matching — if the technique and catalogue row address the same workflow concept, count it as a match.
 - If found: append to that technique entry — `→ Course: [Name] ([Duration]) — [URL]`
-- If not found AND the technique is at Engineering or Pioneering level AND the engineer's current level in that dimension is Orchestrating or above: append `→ No course available — I can generate one`
+- If not found AND the technique is at Engineering or Pioneering level AND the engineer's current level in that dimension is Directing or above: append `→ No course available — I can generate one`
 
 If any "no course available" entries exist, ask **once per session**:
 > *"For [topic], there's no ready-made course. Want me to generate a lesson plan? It takes a few minutes and gives you a TA you can work with daily."*
