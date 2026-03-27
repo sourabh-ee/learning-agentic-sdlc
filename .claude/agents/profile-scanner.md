@@ -47,7 +47,6 @@ From JSONL, look for these tool_use events:
 Always check these regardless of history_available:
 - `~/.claude/settings.json` — hooks present? → Engineering signal
 - `~/.claude/MEMORY.md` — populated with project entries? → Directing/Orchestrating signal
-- `~/.claude/coach-observations.jsonl` — if exists, note it (The Coach will run progress-analyst separately)
 - Any `CLAUDE.md` in parent directories (`../`, `../../`) — multi-section, stack-specific = Directing+
 - `.claude/agents/` in any nearby project → Engineering signal
 

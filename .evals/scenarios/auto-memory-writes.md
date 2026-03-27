@@ -5,8 +5,6 @@
 - Engineer: "Arjun", stack: React/TypeScript, placed at Directing in Workflow, Prompting in QA/Skills/Leadership
 - Session commitment: "Set up a GitHub MCP server this sprint"
 - Course recommended: Agent Skills with Anthropic
-- Scribe accepted
-
 ## Expected Auto Memory Writes at Session Close
 
 memory/profile.md — contains:
@@ -32,7 +30,7 @@ memory/courses.md — contains:
 - Recommended: Agent Skills with Anthropic (URL)
 
 memory/preferences.md — contains:
-- scribe_declined: false (or scribe accepted note)
+- history_available: true/false from last scan
 
 MEMORY.md index — contains:
 - One-line pointer to each topic file above
