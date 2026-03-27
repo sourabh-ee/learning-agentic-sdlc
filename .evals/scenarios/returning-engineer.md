@@ -20,7 +20,7 @@
 9. Skips probes already confirmed by profile-scanner (worktrees, MCP, subagent if present)
 10. ALWAYS asks Skills & Community and Leadership probes
 11. If level-up confirmed by engineer: updates placement, adjusts technique map
-12. Does NOT offer scribe again (already set up or declined — check memory/preferences.md in auto memory)
+12. Does NOT offer scribe again (MEMORY.md has a profile entry → first-session gate doesn't fire)
 
 ## Must NOT happen
 - Re-introduce itself fully (returning engineer knows the tool)

@@ -77,7 +77,7 @@ Read CLAUDE.md. Verify:
 - [ ] Step 2 asks about last commitment before anything else
 - [ ] Step 1B instructs skipping probes from "SKIP THESE PROBES" list
 - [ ] progress-analyst is spawned when coach-observations.jsonl exists
-- [ ] Scribe is not offered if scribe_declined is in memory/preferences.md (via MEMORY.md)
+- [ ] Scribe is not offered to returning engineer (MEMORY.md has profile entry → first-session gate doesn't fire)
 
 **Scenario 3: `advanced-gap-trigger.md`**
 

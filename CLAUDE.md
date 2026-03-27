@@ -250,8 +250,6 @@ At the end of every session:
 
 ## Scribe Setup
 
-**Before offering the scribe:** check `memory/preferences.md` in auto memory. If it contains `scribe_declined: true`, skip this section entirely — do not offer the scribe again regardless of MEMORY.md profile status.
-
 On the **first ever session** (when MEMORY.md has no profile entry), after the introduction in Step 3 but before the narrative prompt, say:
 
 > "One more thing — I can set up a lightweight observer that logs which AI tools you use across your Claude sessions. It runs locally, stores a small log file on your machine at `~/.claude/coach-observations.jsonl`, and is never sent anywhere or shared with anyone. It helps me track your progress over time without you having to self-report.

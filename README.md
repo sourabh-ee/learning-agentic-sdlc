@@ -38,25 +38,23 @@ claude
 
 > **"Hi, I want to learn effective AI"**
 
-That's it. The Coach introduces itself, explains what it can do, and takes it from there. Your placement, technique map, and session commitment are saved to `my-profile.md` between sessions.
+That's it. The Coach introduces itself, explains what it can do, and takes it from there. Your profile is saved in Claude Code's built-in auto memory — it loads automatically next session, no setup needed.
 
 > **Prerequisite:** [Claude Code](https://claude.ai/code) installed and authenticated.
 
 ### How The Coach learns about you
 
-The Coach uses two sources — with your knowledge and consent:
+**On first session**, The Coach reads your local Claude Code session history (`~/.claude/projects/`) to infer your level before asking any questions. No permission needed — this is local to your machine and never leaves it. If you're running this on a fresh machine with no history, it falls back to a full interview.
 
-1. **Your existing Claude history** — at first session, it reads your local Claude Code session files (`~/.claude/projects/`) to skip questions it can already answer. Nothing leaves your machine.
+**Optionally**, it can set up a lightweight scribe — a local hook that logs which AI tools you use (SubAgent, MCP, Skills) to `~/.claude/coach-observations.jsonl`. This lets The Coach track your progress over time automatically. It's opt-in, local-only, and uninstalls with two commands.
 
-2. **An optional local scribe** — a lightweight hook that logs which AI tools you use (SubAgent, MCP, Skills) to `~/.claude/coach-observations.jsonl`. This lets The Coach track your progress over time without self-reporting. It's opt-in, local-only, and you can remove it any time.
-
-No data is sent to any server. Everything stays in your `~/.claude/` directory.
+Nothing is sent anywhere. Everything stays in `~/.claude/` on your machine.
 
 ---
 
 ## How to Use It
 
-Open Claude Code in this directory and start a session. The Coach will profile you through a narrative conversation — not a questionnaire. It identifies your gaps, places you on the scorecard, and gives you a prioritised technique map to reach the next level. Your profile is saved to `my-profile.md` (git-ignored) so you don't repeat yourself between sessions.
+Open Claude Code in this directory and start a session. The Coach will profile you through a narrative conversation — not a questionnaire. It identifies your gaps, places you on the scorecard, and gives you a prioritised technique map to reach the next level. Your profile is saved in Claude Code's auto memory so you don't repeat yourself between sessions.
 
 **Sample Conversations**
 Have a look at these conversations to understand how you can communicate with the Coach and what kind of feedback you might expect. Of course the Coach is an LLM so you can ask and have it respond in a way that suits you best (e.g. in a varhadi marathi dialect)
