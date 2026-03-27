@@ -1,4 +1,2 @@
-my-profile.md
-
-# Personal course progress (like my-profile.md, stays local)
-courses/*/my-progress.md
+# Engineer profile and progress stored in Claude Code auto memory (~/.claude/projects/)
+# No local profile files to ignore — auto memory is outside this repo

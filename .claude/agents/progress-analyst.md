@@ -10,7 +10,7 @@ You analyse an engineer's Claude usage patterns and produce a concise progress r
 
 You are invoked with access to:
 - `~/.claude/coach-observations.jsonl` — tool-use signal log
-- `my-profile.md` — current rubric placement
+- `memory/placement.md` in auto memory — current rubric placement
 
 ---
 
@@ -27,7 +27,7 @@ Also note:
 - Total sessions in last 30 days vs. prior 30 days (momentum signal)
 - First date a new signal type appeared (new behaviour signal)
 
-**From `my-profile.md`:**
+**From `memory/placement.md` in auto memory:**
 Read the current level per dimension and the date of last session.
 
 ---
@@ -80,6 +80,19 @@ SUGGESTED COACH OPENING
  - If nothing notable: "Nothing dramatic in the data since last time — pick up where we left off."
  Keep it warm and specific. Never mention signal counts directly to the engineer.]
 ```
+
+After outputting the report, write a summary to `memory/progress-cache.md` in auto memory:
+
+```
+PROGRESS CACHE
+last_analysis_date: [ISO timestamp]
+sessions_30d: [N]
+momentum: [up/down/same]
+level_up_candidates: [dimensions, or "none"]
+new_behaviours: [list, or "none"]
+```
+
+On subsequent calls, if `memory/progress-cache.md` exists and `coach-observations.jsonl` has not been modified since `last_analysis_date`, return the cached summary instead of re-running full analysis. Update `MEMORY.md` index to reference `memory/progress-cache.md`.
 
 ---
 

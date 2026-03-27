@@ -53,6 +53,23 @@ Always check these regardless of history_available:
 
 ---
 
+## Caching Strategy (B+D)
+
+Before scanning, check if a cached result exists in auto memory:
+
+1. Check `memory/scan-cache.md` in the auto memory directory for this project
+2. If cache exists: read `last_scan_date` and compare to most recent JSONL file mtime
+   - If no new JSONL files since `last_scan_date`: return the cached prior immediately (fast path)
+   - If new JSONL files exist since `last_scan_date`: proceed with full scan
+3. If no cache: proceed with full scan
+
+After scanning, write results to auto memory:
+- Write the full structured result to `memory/scan-cache.md`
+- Include `last_scan_date: [ISO timestamp]` at the top
+- Update `MEMORY.md` index if `scan-cache.md` is not already listed
+
+---
+
 ## What to Return
 
 Return a structured prior in this exact format:
@@ -82,6 +99,15 @@ SKIP THESE PROBES
 COACH DISCLOSURE LINE
 [One sentence the Coach can use to tell the engineer what was found, e.g.:
 "I can already see you're using worktrees and MCP servers — I'll skip those questions and focus on what I couldn't see."]
+```
+
+After returning the result, write it to `memory/scan-cache.md`:
+
+```
+SCAN CACHE
+last_scan_date: [ISO timestamp]
+
+[full PROFILE SCAN RESULT content here]
 ```
 
 ---

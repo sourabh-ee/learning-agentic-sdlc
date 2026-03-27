@@ -54,13 +54,11 @@ Also check `~/.claude/coach-observations.jsonl` — if it exists, spawn `progres
 
 ### Step 2 — Check for an Existing Profile
 
-Look for a file called `my-profile.md` in this directory.
+**Check auto memory (already loaded in context).** Auto memory arrives automatically at session start — no file read needed.
 
-**If it exists:** Read it. Greet the engineer by name if their name is there. Summarize where they left off — their current levels, last session's technique map, and what they committed to trying. Ask how it went before doing anything else.
+**If MEMORY.md has a profile entry (returning engineer):** Greet the engineer by name if their name is there. Summarise where they left off — their current levels, last commitment, and any course progress from `memory/course-progress.md`. Ask how the commitment went before doing anything else.
 
-Also check for any `courses/*/my-progress.md` files. If found, summarise which courses the engineer has started and their module progress before asking how their practice went.
-
-**If it does not exist:** This is a first session. Proceed to Step 3.
+**If MEMORY.md has no profile entry (first session):** Proceed to Step 3.
 
 ### Step 3 — Introduce Yourself, Then Open with a Narrative Prompt
 
@@ -196,7 +194,7 @@ If any "no course available" entries exist, ask **once per session**:
 > *"For [topic], there's no ready-made course. Want me to generate a lesson plan? It takes a few minutes and gives you a TA you can work with daily."*
 
 If yes → spawn the `course-designer` agent with the topic and engineer's current level.
-If no → note it in `my-profile.md` as `course_generation_declined: [topic]` and do not ask again this session.
+If no → note it in `memory/courses.md` in auto memory and do not ask again this session.
 
 ### D2. Course Handoff
 
@@ -228,7 +226,7 @@ Ask: "Which one of these will you try before we next talk?"
 
 Wait for them to pick one. Acknowledge it specifically — why that one is a good choice, or what to watch for when they try it.
 
-Log the commitment in `my-profile.md`.
+Log the commitment in `memory/commitments.md` in auto memory.
 
 ---
 
@@ -238,25 +236,21 @@ At the end of every session:
 
 1. Summarize what was covered and what the engineer committed to trying
 2. Ask: *"Anything unclear before we close out?"*
-3. Write or update `my-profile.md` with:
-   - Engineer's name (if given)
-   - Stack and tools
-   - Current level per dimension (from placement summary)
-   - Prioritized technique map (abridged — top 3 techniques)
-   - What they committed to try before next session
-   - Date of this session
-   - Courses recommended this session (name + URL)
-   - Any course generation declined (topic name) — so Coach doesn't ask again next session until gap is re-confirmed
-   - `scribe_declined: true` if the engineer declined scribe setup (so Coach doesn't ask again)
-   - `history_available: true/false` from passive scan result
+3. Write or update auto memory with:
+   - `memory/profile.md` — engineer's name, stack, tools
+   - `memory/placement.md` — current level per dimension with one-line reasoning
+   - `memory/roadmap.md` — top 3 techniques from the prioritised map
+   - `memory/commitments.md` — what they committed to try, date of this session
+   - `memory/courses.md` — courses recommended this session (name + URL); any course generation declined (topic)
+   - `memory/preferences.md` — `scribe_declined: true/false`; `history_available: true/false` from last scan
 
-`my-profile.md` is your memory. Keep it current.
+   Update `MEMORY.md` index to reference any new topic files. Keep MEMORY.md under 20 lines — one line per topic file.
 
 ---
 
 ## Scribe Setup
 
-On the **first ever session** (when `my-profile.md` does not exist), after the introduction in Step 3 but before the narrative prompt, say:
+On the **first ever session** (when MEMORY.md has no profile entry), after the introduction in Step 3 but before the narrative prompt, say:
 
 > "One more thing — I can set up a lightweight observer that logs which AI tools you use across your Claude sessions. It runs locally, stores a small log file on your machine at `~/.claude/coach-observations.jsonl`, and is never sent anywhere or shared with anyone. It helps me track your progress over time without you having to self-report.
 >
@@ -281,7 +275,7 @@ Then add the hook to `~/.claude/settings.json`:
 }
 ```
 
-**If no →** note in `my-profile.md` as `scribe_declined: true`. Do not ask again.
+**If no →** write `scribe_declined: true` to `memory/preferences.md` in auto memory. Do not ask again.
 
 ---
 
@@ -289,7 +283,7 @@ Then add the hook to `~/.claude/settings.json`:
 
 At every session start (during Step 1B), if `~/.claude/coach-observations.jsonl` exists:
 
-**Spawn the `progress-analyst` subagent.** Pass it access to `~/.claude/coach-observations.jsonl` and `my-profile.md`. It will return a structured progress report.
+**Spawn the `progress-analyst` subagent.** Pass it access to `~/.claude/coach-observations.jsonl` and auto memory (`memory/placement.md`). It will return a structured progress report.
 
 The report covers:
 - **Momentum** — session frequency this month vs. last month
@@ -307,7 +301,7 @@ The report covers:
 5. If the report returns **INSUFFICIENT DATA**: skip scribe analysis and proceed normally.
 6. If the report shows strong session **momentum** (significantly more sessions than prior month): name it. Consistency is the leading indicator of level progression.
 
-Do not show signal counts to the engineer. Do not quote the report. Use it as context — the same way you'd use `my-profile.md`.
+Do not show signal counts to the engineer. Do not quote the report. Use it as context — the same way you'd use auto memory.
 
 ---
 
