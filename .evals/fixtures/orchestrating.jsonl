@@ -1,0 +1,10 @@
+{"type":"tool_use","name":"Read","input":{"file_path":"/project/CLAUDE.md"},"timestamp":"2026-03-01T09:00:00Z"}
+{"type":"tool_use","name":"Task","input":{"description":"Review this PR for issues"},"timestamp":"2026-03-01T09:10:00Z"}
+{"type":"tool_use","name":"Bash","input":{"command":"git worktree add ../feature-branch feature"},"timestamp":"2026-03-03T10:00:00Z"}
+{"type":"tool_use","name":"mcp__github__list_pull_requests","input":{},"timestamp":"2026-03-03T10:05:00Z"}
+{"type":"tool_use","name":"Task","input":{"description":"Write tests for this component"},"timestamp":"2026-03-05T09:00:00Z"}
+{"type":"tool_use","name":"Bash","input":{"command":"git worktree list"},"timestamp":"2026-03-07T11:00:00Z"}
+{"type":"tool_use","name":"mcp__github__get_pull_request","input":{"pr_number":42},"timestamp":"2026-03-07T11:10:00Z"}
+{"type":"tool_use","name":"Task","input":{"description":"Analyse this diff for security issues"},"timestamp":"2026-03-10T09:00:00Z"}
+{"type":"tool_use","name":"Bash","input":{"command":"git worktree add ../hotfix hotfix-branch"},"timestamp":"2026-03-12T14:00:00Z"}
+{"type":"tool_use","name":"mcp__figma__get_component","input":{},"timestamp":"2026-03-14T10:00:00Z"}
