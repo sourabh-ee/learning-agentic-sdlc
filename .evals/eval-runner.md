@@ -62,22 +62,22 @@ This is a **static analysis** — you read CLAUDE.md and verify it still encodes
 
 Read CLAUDE.md. Verify:
 - [ ] Step 1B spawns profile-scanner
-- [ ] Step 2 checks for my-profile.md
+- [ ] Step 2 checks MEMORY.md (already in context) for profile entry
 - [ ] Step 3 introduces Coach before narrative prompt
 - [ ] Scribe Setup section exists and triggers on first session
 - [ ] Scribe Setup instructs copying `.claude/coach-scribe.sh` template
 - [ ] Narrative prompt is asked after scribe offer
 - [ ] All 7 atomic probes are present in the profiling table
-- [ ] Closing section writes my-profile.md
+- [ ] Closing section writes auto memory topic files (memory/profile.md, memory/placement.md, memory/commitments.md, memory/preferences.md)
 
 **Scenario 2: `returning-engineer.md`**
 
 Read CLAUDE.md. Verify:
-- [ ] Step 2 reads my-profile.md, greets by name if present
+- [ ] Step 2 checks MEMORY.md (already in context) for profile entry, greets by name if present
 - [ ] Step 2 asks about last commitment before anything else
 - [ ] Step 1B instructs skipping probes from "SKIP THESE PROBES" list
 - [ ] progress-analyst is spawned when coach-observations.jsonl exists
-- [ ] Scribe is not offered if scribe_declined is in my-profile.md (check Scribe Setup section for this guard)
+- [ ] Scribe is not offered if scribe_declined is in memory/preferences.md (via MEMORY.md)
 
 **Scenario 3: `advanced-gap-trigger.md`**
 
@@ -86,14 +86,42 @@ Read CLAUDE.md. Verify:
 - [ ] D1 asks about course generation "once per session"
 - [ ] D1 threshold is "Directing or above" (not Orchestrating)
 - [ ] D2 handoff is delivered AFTER course-designer finishes (not before)
-- [ ] Declining course generation is noted in my-profile.md
+- [ ] Declining course generation is noted in memory/courses.md in auto memory
 
 **Scenario 4: `scribe-offer-declined.md`**
 
 Read CLAUDE.md. Verify:
-- [ ] Scribe Setup notes `scribe_declined: true` in my-profile.md on decline
-- [ ] Closing Each Session persists scribe_declined
+- [ ] Scribe Setup writes `scribe_declined: true` to memory/preferences.md on decline
+- [ ] Closing Each Session writes memory/preferences.md with scribe_declined
 - [ ] No instruction re-offers scribe if scribe_declined is set
+
+---
+
+## Part 3: Auto Memory Structure Tests
+
+For each new scenario, verify CLAUDE.md encodes the correct behaviour:
+
+**Scenario: `auto-memory-writes.md`**
+
+Read CLAUDE.md Closing Each Session. Verify:
+- [ ] Instructs writing memory/profile.md
+- [ ] Instructs writing memory/placement.md
+- [ ] Instructs writing memory/roadmap.md
+- [ ] Instructs writing memory/commitments.md
+- [ ] Instructs writing memory/courses.md
+- [ ] Instructs writing memory/preferences.md
+- [ ] Instructs keeping MEMORY.md under 20 lines
+- [ ] No reference to my-profile.md remains in closing instructions
+
+**Scenario: `scan-cache-warm.md`**
+
+Read .claude/agents/profile-scanner.md. Verify:
+- [ ] Caching Strategy section exists
+- [ ] Instructs checking memory/scan-cache.md before scanning
+- [ ] Instructs comparing last_scan_date to JSONL mtime
+- [ ] Fast-path (return cached) when no new JSONL files
+- [ ] Full scan path when new JSONL files exist
+- [ ] Writes result to memory/scan-cache.md after full scan
 
 ---
 
@@ -126,6 +154,14 @@ PART 2: PROTOCOL COMPLIANCE
 │ scribe-offer-declined        │ PASS   │                            │
 └──────────────────────────────┴────────┴────────────────────────────┘
 
+PART 3: AUTO MEMORY STRUCTURE
+┌──────────────────────────────┬────────┬────────────────────────────┐
+│ Scenario                     │ Result │ Notes                      │
+├──────────────────────────────┼────────┼────────────────────────────┤
+│ auto-memory-writes           │        │                            │
+│ scan-cache-warm              │        │                            │
+└──────────────────────────────┴────────┴────────────────────────────┘
+
 OVERALL: 8/9 PASS
 
 FAILURES TO FIX:
@@ -145,5 +181,6 @@ Run after any of these changes:
 - progress-analyst.md edited
 - New level added to the rubric
 - Catalogue entries added or transitions changed
+- `my-profile.md` removed or replaced (add: auto memory structure changed)
 
 Invoke with: open Claude Code in this directory and say "run evals"

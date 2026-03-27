@@ -14,7 +14,7 @@
 4. Asks ONCE: "For designing a custom MCP server, there's no ready-made course. Want me to generate a lesson plan?"
 5. If yes → spawns course-designer agent with topic + engineer level
 6. After course-designer finishes → delivers D2 handoff for generated course (NOT before)
-7. Notes in my-profile.md if declined
+7. Notes in memory/courses.md in auto memory if declined
 
 ## Must NOT happen
 - Ask about course generation more than once per session
