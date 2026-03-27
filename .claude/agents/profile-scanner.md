@@ -15,32 +15,32 @@ You are invoked with:
 
 ## What to Scan
 
-### 1. Session JSONL files
+### 1. Run the shared scan script
 
-If `test_path` is provided: read JSONL files from `test_path/`.
-Otherwise: check `~/.claude/projects/`. If it exists and has ≥3 session files, read up to 20 most recent.
+Run the pre-built script — do not write your own bash:
 
-If fewer than 3 session files exist (or `~/.claude/projects/` doesn't exist): set `history_available = false` and skip to Artifacts.
+```bash
+# Standard scan (uses ~/.claude/projects/)
+bash .claude/scripts/scan-history.sh
 
-From JSONL, look for these tool_use events:
+# Eval/test mode (reads fixtures from a specific path)
+bash .claude/scripts/scan-history.sh --test-path <path>
+```
 
-**Directing signals:**
-- `CLAUDE.md` read at session start (Read tool on a CLAUDE.md file)
-- `/clear` or `/compact` invoked
+The script outputs JSON. Parse it to get `history_available`, signal counts, and session stats. If `history_available` is false, skip to Artifacts.
 
-**Orchestrating signals:**
-- `Task` tool calls → SubAgent usage
-- `Bash` calls containing `git worktree` → worktree usage
-- Tool names starting with `mcp__` → MCP server usage
+**Signal meanings from the JSON output:**
 
-**Engineering signals:**
-- `Skill` tool calls → skill usage
-- Read/Write to `.claude/agents/` paths → custom agent authoring
-- Hooks-related Bash commands → hook configuration
-
-**Pioneering signals:**
-- Multiple concurrent `git worktree` sessions
-- Task tool used with agent team patterns (multiple Task calls in same session with different roles)
+| JSON field | Signal level | What it means |
+|---|---|---|
+| `claude_md_reads` > 0 | Directing | CLAUDE.md used for context |
+| `compact_clear_used` > 0 | Directing | Context management awareness |
+| `subagent_used` > 0 | Orchestrating | SubAgent usage confirmed |
+| `worktree_used` > 0 | Orchestrating | Worktree usage confirmed |
+| `mcp_used` > 0 | Orchestrating | MCP server usage confirmed |
+| `skill_invoked` > 0 | Engineering | Custom skill usage |
+| `agents_path_access` > 0 | Engineering | Custom agent authoring |
+| `concurrent_worktrees` > 1 | Pioneering | Multiple concurrent worktrees |
 
 ### 2. Artifacts
 

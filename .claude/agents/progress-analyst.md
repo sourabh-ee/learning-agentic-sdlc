@@ -14,19 +14,18 @@ You are invoked with access to `~/.claude/projects/` session JSONL files.
 
 ## What to Read
 
-Read the most recent JSONL session files from `~/.claude/projects/`. Focus on the last 30 days.
+Run the pre-built scan script — do not write your own bash:
 
-Count signal types per time window:
-- `Task` tool calls → `subagent_used`
-- `mcp__*` prefixed tools → `mcp_used`
-- `Skill` tool calls → `skill_invoked`
-- `Bash` calls with `git worktree` → `worktree_used`
+```bash
+bash .claude/scripts/scan-history.sh
+```
 
-Also track:
-- Total sessions in last 30 days vs prior 30 days (momentum)
-- First date any signal type appeared since last session date in `memory/placement.md`
+The script outputs JSON with:
+- `sessions_30d` and `sessions_prior_30d` — for momentum
+- `signals_30d` — signal counts for the recent window
+- `signals_prior_30d` — subagent/mcp/skill counts for the prior window
 
-Read `memory/placement.md` for current level and date of last session.
+Also read `memory/placement.md` for current level and date of last session. Use the last session date to identify signals that appeared for the first time since then (new behaviours).
 
 ---
 

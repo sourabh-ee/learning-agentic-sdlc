@@ -3,7 +3,8 @@
     "allow": [
       "Read(~/.claude/projects/**)",
       "Read(~/.claude/settings.json)",
-      "Read(~/.claude/MEMORY.md)"
+      "Read(~/.claude/MEMORY.md)",
+      "Bash(bash .claude/scripts/scan-history.sh*)"
     ]
   }
 }
