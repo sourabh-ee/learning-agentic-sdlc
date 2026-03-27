@@ -1,11 +1,16 @@
-
 # AI-in-SDLC Self-Evaluation Framework
 
-## What This Is
+Most engineers use AI reactively — one prompt, one task, move on. The gap between that and using AI as a structured collaborator across the full SDLC is wide, and most people never cross it because there's no map. This framework gives you the map: an honest picture of where you are today, a prioritised path to where you want to be, and the learning resources to get there.
 
-A learning framework for engineers who want to grow their agentic AI skills across the SDLC — and have a structure for tracking that growth honestly over time. You will get recommendations to learn, you can ask questions/doubts to the Coach and report back with progress.
+It's built for software engineers who want to grow deliberately, not just use AI more.
 
-This is not a performance review tool. No manager sees it. There is no score. It exists because the gap between "using AI occasionally" and "using AI as a structured collaborator" is wide enough that most people benefit from an explicit map of what the journey looks like.
+## What You'll Get Out Of This
+
+- An honest picture of where you are today across four dimensions of agentic practice
+- A prioritised technique map showing exactly what to learn next and why
+- Curated course links matched to each gap in your roadmap — no searching required
+- A generated lesson plan + daily TA agent for advanced topics without a ready-made course
+- A progress record you own and control — no manager sees it, no score is kept
 
 ## What This Is Not
 
@@ -37,7 +42,7 @@ claude
 
 ## How to Use It
 
-Open Claude Code in this directory and start a session. The Coach will profile you through a narrative conversation — not a questionnaire. It identifies your gaps, places you on the scorecard, and gives you a prioritized technique map to reach the next level. Your profile is saved to `my-profile.md` (git-ignored) so you don't repeat yourself between sessions.
+Open Claude Code in this directory and start a session. The Coach will profile you through a narrative conversation — not a questionnaire. It identifies your gaps, places you on the scorecard, and gives you a prioritised technique map to reach the next level. Your profile is saved to `my-profile.md` (git-ignored) so you don't repeat yourself between sessions.
 
 **Sample Conversations**
 Have a look at these conversations to understand how you can communicate with the Coach and what kind of feedback you might expect. Ofcourse the Coach is an LLM so you can ask and have it respond in a way that suits you best (e.g. in a varhadi marathi dialect)
@@ -46,6 +51,12 @@ Have a look at these conversations to understand how you can communicate with th
 Post profiling, you can look at the Level Playbooks to understand what each level looks like at a high level and relevance to you tech stack.
 
 **Monthly reflection** is optional. If you've been practicing for a month and want a quick self-check before your next session, fill out `monthly-reflection.md` and bring it to the session — the Coach will use it to accelerate profiling.
+
+### Getting a Course
+
+The Coach maps each technique in your roadmap to the best available online course. For beginner and intermediate gaps, it links directly to curated courses (deeplearning.ai, Anthropic Skilljar). For advanced topics with no ready-made course, it can generate a custom lesson plan on the spot — just say yes when it asks.
+
+Generated courses land in `courses/<topic>/`. Open Claude Code there and a TA agent activates automatically. The TA handles daily Q&A and exercises. Come back to The Coach when you've finished or hit a wall.
 
 ---
 
@@ -57,6 +68,9 @@ Post profiling, you can look at the Level Playbooks to understand what each leve
 | [`level-playbooks.md`](./level-playbooks.md) | Vivid narratives of what working at each level looks and feels like day-to-day | The Coach references this to show you your current level and destination |
 | [`monthly-reflection.md`](./monthly-reflection.md) | Helps evaluate which activities you did and identifies what to focus on next month | Optional: fill in monthly, bring to your next session |
 | [`CLAUDE.md`](./CLAUDE.md) | Activates The Coach — profiles you, places you, and gives you a roadmap | Open Claude Code in this directory and start a session |
+| [`courses/catalogue.md`](./courses/catalogue.md) | Curated courses mapped to rubric techniques | Read by The Coach to recommend learning resources |
+| [`.claude/agents/course-designer.md`](./.claude/agents/course-designer.md) | Opus-powered course generator | Invoked by The Coach for advanced gaps with no existing course |
+| [`.claude/agents/ta-agent.md`](./.claude/agents/ta-agent.md) | Sonnet TA template | Populated per course; activates when engineer opens a course folder |
 
 ---
 
