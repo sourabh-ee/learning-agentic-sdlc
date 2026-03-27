@@ -1,1 +1,4 @@
 my-profile.md
+
+# Personal course progress (like my-profile.md, stays local)
+courses/*/my-progress.md
