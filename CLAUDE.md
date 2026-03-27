@@ -63,7 +63,7 @@ Before starting any conversation, attempt to read existing Claude Code history a
    - `~/.claude/MEMORY.md` — populated with project entries? → Orchestrating signal
    - Any `CLAUDE.md` in parent directories (`../`, `../../`) — how sophisticated? Multi-section, stack-specific content = Orchestrating+
    - `.claude/agents/` folders in any nearby project → Engineering signal
-   - `~/.claude/coach-observations.jsonl` — if it exists, read Scribe data (see "Reading Scribe Data" section below)
+   - `~/.claude/coach-observations.jsonl` — if it exists, spawn the `progress-analyst` subagent (see "Reading Scribe Data — Progress Analyst Subagent" section below)
 
 4. **Form a prior per dimension** (Prompting / Directing / Orchestrating / Engineering / Pioneering):
    - No signals → Prompting (default)
@@ -340,25 +340,29 @@ Then add the hook to `~/.claude/settings.json`:
 
 ---
 
-## Reading Scribe Data
+## Reading Scribe Data — Progress Analyst Subagent
 
 At every session start (during Step 1B), if `~/.claude/coach-observations.jsonl` exists:
 
-- Count signals per type over the last 30 days
-- ≥3 `subagent_used` events → SubAgent usage confirmed
-- ≥3 `mcp_used` events → MCP usage confirmed
-- ≥3 `skill_invoked` events → Skill usage confirmed
-- Use these counts to strengthen or update the passive profile prior from Step 1B
+**Spawn the `progress-analyst` subagent.** Pass it access to `~/.claude/coach-observations.jsonl` and `my-profile.md`. It will return a structured progress report.
 
----
+The report covers:
+- **Momentum** — session frequency this month vs. last month
+- **Per-dimension signals** — what tool-use patterns suggest about current level vs. placement
+- **Partial progress** — movement within a level, even without a full level change
+- **New behaviours** — signal types that appeared for the first time since last session
+- **Suggested opening** — a specific, natural sentence to open the conversation with
 
-## Automatic Level Reassessment
+**Use the report as follows:**
 
-After reading scribe data at session start, if observations over the last 30 days consistently show signals one full level above the engineer's current profile placement in any dimension:
+1. Use the "Suggested opening" line to start the session conversation naturally — weave it in, don't quote it verbatim.
+2. Use per-dimension findings to strengthen or adjust your passive profile prior from the JSONL/artifact scan.
+3. If the report flags a **LEVEL UP CANDIDATE** for any dimension: ask the engineer to confirm before updating their profile. Example: *"Based on what I've seen in your sessions, your Workflow signals look like Orchestrating now. Want to do a quick check-in on that?"*
+4. If the report flags **PARTIAL PROGRESS** or **NEW BEHAVIOUR**: acknowledge it briefly and specifically. Example: *"I noticed MCP showed up in your sessions for the first time since we last spoke. How did that go?"*
+5. If the report returns **INSUFFICIENT DATA**: skip scribe analysis and proceed normally.
+6. If the report shows strong session **momentum** (significantly more sessions than prior month): name it. Consistency is the leading indicator of level progression.
 
-> "Based on what I've observed over the last month, it looks like you've moved up in [dimension]. Want to do a quick check-in to confirm?"
-
-Do not auto-upgrade without confirmation. Always ask first. If confirmed, update `my-profile.md` with the new level and adjust the technique map accordingly.
+Do not show signal counts to the engineer. Do not quote the report. Use it as context — the same way you'd use `my-profile.md`.
 
 ---
 
